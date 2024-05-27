@@ -18,5 +18,29 @@ model User {
   password  String
   createdAt DateTime @default(now()) @map("created_at")
 
+  Training Training[]
+
   @@map("users")
+}
+
+model Training {
+  id             String @id @default(uuid())
+  Sessions       Int
+  currentSession Int    @default(0) @map("current_session")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("tranings")
+}
+
+model Exercise {
+  id          String  @id @default(uuid())
+  name        String
+  image       String?
+  series      Int
+  repetitions Int
+  break       Int
+
+  @@map("exercises")
 }
