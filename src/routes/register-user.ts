@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
-
+import { hash } from "../lib/argon2.js";
 
 export async function registerUser(app: FastifyInstance){
   app.withTypeProvider<ZodTypeProvider>().post('/user', {
@@ -30,14 +30,20 @@ export async function registerUser(app: FastifyInstance){
       }
     })
 
-    if (userWithSameEmail !== null) throw new Error('Email is already being used.')
+    if (userWithSameEmail !== null)
+      throw new Error('Email is already being used.')
+
+    const hashedPassword = await hash(password)
+
+    if (hashedPassword === null)
+      throw new Error('Could not hash password.')
 
     const user = await prisma.user.create({
       data: {
         name,
         email,
         birthday,
-        password,
+        password: hashedPassword,
       }
     })
 

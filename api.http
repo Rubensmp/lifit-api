@@ -3,7 +3,21 @@ Content-Type: application/json
 
 {
   "name": "Rubens Macedo Pereira",
-  "email": "rubens.mp1@gmail.com",
+  "email": "rubens.mp2@gmail.com",
   "birthday": "09/05/1994",
-  "password": "123456"
+  "password": "1234561"
 }
+
+###
+POST http://localhost:3333/auth
+Content-Type: application/json
+
+{
+  "email": "rubens.mp2@gmail.com",
+  "password": "1234561"
+}
+
+###
+GET http://localhost:3333/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBhNWMxNWQyLWE1ZTUtNDBiOS1iYmYyLWRmZmIzNDJmMDlhOCIsImlhdCI6MTcxNjg2NTUzOX0.iVaKHbv81IRX0IJgRlQTEfUzLFjviIOqPTTrbl8S1gU

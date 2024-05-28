@@ -6,6 +6,8 @@ import { fastifyCors } from "@fastify/cors";
 
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod"
 import { registerUser } from "./routes/register-user.js";
+import { authUser } from "./routes/auth-user.js";
+import { getUserInfo } from "./routes/get-user-info.js";
 
 
 const app = fastify()
@@ -36,6 +38,8 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(registerUser)
+app.register(authUser)
+app.register(getUserInfo)
 
 
 app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
