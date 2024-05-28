@@ -24,6 +24,12 @@ export async function getUserInfo(app: FastifyInstance){
       },
     }
   } , async (request, reply) => {
+
+    const userr = request.user
+
+    if(!userr) throw new BadRequest('User not authenticated')
+
+
     const user = await prisma.user.findUnique({
       select: {
         id: true,
@@ -33,13 +39,11 @@ export async function getUserInfo(app: FastifyInstance){
         createdAt: true,
       },
       where: {
-        id: request.user?.id
+        id: userr.id
       },
     })
 
-    if(user === null) {
-      throw new BadRequest('User not found')
-    }
+    if(!user) throw new BadRequest('User not found')
 
     return reply.send({
       user: {
