@@ -7,11 +7,14 @@
   "devDependencies": {
     "@types/node": "^20.12.12",
     "prisma": "^5.14.0",
+    "tsup": "^8.0.2",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --format esm",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
