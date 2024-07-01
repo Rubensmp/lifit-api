@@ -17,7 +17,6 @@ export async function getUserInfo(app: FastifyInstance){
             id: z.string().uuid(),
             name: z.string(),
             email: z.string().email(),
-            birthday: z.string(),
             createdAt: z.date()
           })
         })
@@ -35,7 +34,6 @@ export async function getUserInfo(app: FastifyInstance){
         id: true,
         name: true,
         email: true,
-        birthday: true,
         createdAt: true,
       },
       where: {
@@ -50,7 +48,6 @@ export async function getUserInfo(app: FastifyInstance){
         id: user.id,
         name: user.name,
         email: user.email,
-        birthday: user.birthday,
         createdAt: user.createdAt,
       }
     })

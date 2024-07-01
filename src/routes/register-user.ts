@@ -12,7 +12,6 @@ export async function registerUser(app: FastifyInstance){
       body: z.object({
         name: z.string().min(4),
         email: z.string().email(),
-        birthday: z.string(),
         password: z.string().min(6),
       }),
       response: {
@@ -22,7 +21,7 @@ export async function registerUser(app: FastifyInstance){
       }
     }
   } , async (request, reply) => {
-    const { email, birthday, name, password } = request.body
+    const { email, name, password } = request.body
 
     const userWithSameEmail = await prisma.user.findUnique({
       where: {
@@ -42,7 +41,6 @@ export async function registerUser(app: FastifyInstance){
       data: {
         name,
         email,
-        birthday,
         password: hashedPassword,
       }
     })
