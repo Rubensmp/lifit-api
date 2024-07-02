@@ -3,6 +3,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
 import { hash } from "../lib/argon2.js";
+import { sign } from "../lib/jwt.js";
 
 export async function registerUser(app: FastifyInstance){
   app.withTypeProvider<ZodTypeProvider>().post('/user', {
@@ -16,7 +17,7 @@ export async function registerUser(app: FastifyInstance){
       }),
       response: {
         201: z.object({
-          userId: z.string().uuid(),
+          acessToken: z.string(),
         })
       }
     }
@@ -45,6 +46,10 @@ export async function registerUser(app: FastifyInstance){
       }
     })
 
-    return reply.status(201).send({ userId: user.id })
+    const acessToken = await sign({
+      id: user.id
+    })
+
+    return reply.status(201).send({ acessToken })
   })
 }
