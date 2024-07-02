@@ -17,7 +17,8 @@ export async function getUserInfo(app: FastifyInstance){
             id: z.string().uuid(),
             name: z.string(),
             email: z.string().email(),
-            createdAt: z.date()
+            createdAt: z.date(),
+            updatedAt: z.date()
           })
         })
       },
@@ -35,6 +36,7 @@ export async function getUserInfo(app: FastifyInstance){
         name: true,
         email: true,
         createdAt: true,
+        updatedAt: true,
       },
       where: {
         id: userr.id
@@ -49,6 +51,7 @@ export async function getUserInfo(app: FastifyInstance){
         name: user.name,
         email: user.email,
         createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       }
     })
   })
